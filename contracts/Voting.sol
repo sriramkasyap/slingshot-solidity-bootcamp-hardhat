@@ -36,6 +36,7 @@ contract Voting {
         function initiate(string[] calldata _names) external onlyStatus(Status.INIT, "Voting already in progress") {
             for(uint i=0; i < _names.length; i++) {
                 candidates[_names[i]]= Candidate(_names[i], 0, true);
+                candidateNames.push(_names[i]);
             }
             votingStatus = Status.IN_PROGRESS;
             initiator = msg.sender;
