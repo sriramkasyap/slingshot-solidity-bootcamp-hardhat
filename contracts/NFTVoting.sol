@@ -124,16 +124,6 @@ contract NFTVoting is ERC721, Ownable, ERC721Enumerable {
         return candidateResults[currentElectionId][_candidate].voteCount;
     }
 
-    // Get tokens owned by owner
-    function tokensOfOwner(address  _owner) external view returns(uint256[] memory) {
-        uint256 tokenCount = balanceOf(_owner);
-        uint[] memory tokensOwned = new uint[](tokenCount);
-        for(uint i=0; i < tokenCount; i++) {
-            tokensOwned[i] = tokenOfOwnerByIndex(_owner, i);
-        }
-        return tokensOwned;
-    }
-
     // Avoid same sender having multiple voterIds
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Enumerable) {
         require(balanceOf(to) == 0, "You can register only once");
