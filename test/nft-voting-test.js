@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
 describe('NFT Voting Contract', function () {
-  let NFTVoting, nftvoting, owner, addr1, addr2;
+  let NFTVoting, nftvoting, owner, addr1, addr2, addr3;
 
   const initiateVoting = async () => {
     await nftvoting.initiateElection(['One', 'Two', 'Three']);
@@ -10,13 +10,14 @@ describe('NFT Voting Contract', function () {
     await nftvoting.registerAsVoter(); // 0
     await nftvoting.connect(addr1).registerAsVoter(); // 1
     await nftvoting.connect(addr2).registerAsVoter(); // 2
+    await nftvoting.connect(addr3).registerAsVoter(); // 3
   };
 
   beforeEach(async () => {
     NFTVoting = await ethers.getContractFactory('NFTVoting');
     nftvoting = await NFTVoting.deploy();
     await nftvoting.deployed();
-    [owner, addr1, addr2] = await ethers.getSigners();
+    [owner, addr1, addr2, addr3] = await ethers.getSigners();
   });
 
   it('Should get initiated with Zero Votes for candidates', async function () {
@@ -151,10 +152,12 @@ describe('NFT Voting Contract', function () {
 
     await nftvoting.resetVoting();
     try {
-      await nftvoting.getVotes('One');
+      await nftvoting.getVoteCount('One');
     } catch (error) {
       expect(error.message).to.include('revert');
-      expect(error.message).to.include('not listed');
+      expect(error.message).to.include(
+        'This candidate is not participating in this election'
+      );
     }
   });
 });
