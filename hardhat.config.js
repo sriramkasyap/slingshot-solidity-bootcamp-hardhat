@@ -27,6 +27,12 @@ module.exports = {
         "426ca860238d5414b59d9588cb8e85b2aca94bf20a025c175746fa8c14767725",
       ],
     },
+    hardhat: {
+      chainId: 1337,
+    },
+    localhost: {
+      url: "http://localhost:8545",
+    },
   },
   etherscan: {
     apiKey: "U8QD8TJTGES2BTISEJKZZPR3QHC5N54H17",
