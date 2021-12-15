@@ -19,7 +19,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.7",
+  solidity: "0.8.10",
   networks: {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/a610e824d6bc4bef94728de6b76a098f",
